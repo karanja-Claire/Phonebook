@@ -25,9 +25,7 @@ export class ViewFavouriteComponent {
 
   }
 
-  getContactData() {
-    this.contactData = this.db.getContacts()
-  }
+
 
   deleteContacts(data:any) {
     data.deleted = true

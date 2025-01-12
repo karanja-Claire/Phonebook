@@ -12,10 +12,10 @@ export interface Icontact {
   email: string,
   phoneNumber: string,
   physicalAddress: string,
-  bio:any,
-  deleted:boolean,
-  isFavourite:boolean,
-  selected:boolean
+  bio: any,
+  deleted: boolean,
+  isFavourite: boolean,
+  selected: boolean
 
 }
 
@@ -30,7 +30,6 @@ export class ContactsComponent {
   ifError: boolean = false
   errorMessage?: string
   IfSuccess: boolean = false
-  contactData: any[] = []
   searchQuery: string = '';
   selectAll: boolean = false;  // Tracks the "Select All" checkbox state
   isGridView = false;  // Default is list view
@@ -39,10 +38,10 @@ export class ContactsComponent {
   editId!: string
 
   successMessage: any
-  ContactBook:any[] = []
-  filteredContacts:any[]=[]
-  originalContactBook:any[]=[]
-  constructor(private fb: FormBuilder, private db: DbService, private router:Router) { }
+  ContactBook: any[] = []
+  filteredContacts: any[] = []
+  originalContactBook: any[] = []
+  constructor(private fb: FormBuilder, private db: DbService, private router: Router) { }
   ngOnInit(): void {
 
     this.getAllContactData()
@@ -55,16 +54,16 @@ export class ContactsComponent {
 
     this.editId = data.key
 
-    this.router.navigate(['add_contact'], { queryParams: { id:  this.editId}});
+    this.router.navigate(['add_contact'], { queryParams: { id: this.editId } });
 
   }
 
 
 
   markFavourite(data: any) {
-    if(data.isFavorite == true){
+    if (data.isFavorite == true) {
       data.isFavorite = false
-    }else{
+    } else {
       data.isFavorite = true
 
     }
@@ -76,51 +75,11 @@ export class ContactsComponent {
 
   }
 
-  onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
-
-    if (file) {
-      this.readExcel(file);
-    }
-  }
-
-  // Read and parse the Excel file
-  readExcel(file: File): void {
-    const reader = new FileReader();
-
-    reader.onload = (e: any) => {
-      const data = e.target.result;
-      const workbook = XLSX.read(data, { type: 'binary' });
-
-      // Get the first sheet in the workbook
-      const sheetName = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[sheetName];
-
-      // Convert the sheet to JSON
-      const jsonData = XLSX.utils.sheet_to_json(worksheet);  // 'header: 1' gives you an array of rows
 
 
-      const values = Object.values(jsonData);
-
-      values.forEach((record:any)=>{
-        record.id = uuidv4();  // Generates a unique ID
-        record.deleted=false,
-        record.selected= false,
-        record.isFavorite =false
-      })
 
 
-      this.contactData.push(...values)
 
-    };
-
-    // Read the file as binary string
-    reader.readAsBinaryString(file);
-  }
-
-  getContactData() {
-    this.contactData = this.db.getContacts()
-  }
 
   deleteContacts(data: any) {
     data.deleted = true
@@ -136,29 +95,7 @@ export class ContactsComponent {
 
 
 
-  filteredContactData() {
-    if (!this.searchQuery) {
-      return this.contactData; // Return all contacts if no search query
-    }
-    const lowercasedQuery = this.searchQuery.toLowerCase();
 
-    return this.ContactBook
-      .filter(contact =>
-        contact.firstName.toLowerCase().includes(lowercasedQuery) ||
-        contact.lastName.toLowerCase().includes(lowercasedQuery) ||
-        contact.email.toLowerCase().includes(lowercasedQuery) ||
-        contact.phoneNumber ||
-        contact.physicalAddress.toLowerCase().includes(lowercasedQuery)
-      )
-      // sort alphabetically
-      .sort((a, b) => {
-        const nameA = `${a.firstName.trim()} ${a.lastName.trim()}`.toLowerCase();
-        const nameB = `${b.firstName.trim()} ${b.lastName.trim()}`.toLowerCase();
-        return nameA.localeCompare(nameB, undefined, { sensitivity: 'base' });
-      });
-
-
-  }
 
 
   // Method to toggle selection for all rows
@@ -195,8 +132,8 @@ export class ContactsComponent {
   // export html data into excel
 
 
-    exportTableToExcel(): void {
-      const tableElement = document.getElementById('contactsData');
+  exportTableToExcel(): void {
+    const tableElement = document.getElementById('contactsData');
 
     const tableClone = tableElement?.cloneNode(true) as HTMLElement;
 
@@ -210,11 +147,11 @@ export class ContactsComponent {
     });
     rows.forEach((row) => {
 
-    const headers = row.querySelector('th.export-hide');
-    if (headers) {
-      headers.remove();
-    }
-  });
+      const headers = row.querySelector('th.export-hide');
+      if (headers) {
+        headers.remove();
+      }
+    });
 
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(tableClone);
 
@@ -255,9 +192,10 @@ export class ContactsComponent {
             return 1; // Sort `a` after `b`
           }
           return 0; // Names are equal
-        });     },
-      error: () => {},
-      complete: () => {}
+        });
+      },
+      error: () => { },
+      complete: () => { }
     });
   }
 
@@ -275,8 +213,8 @@ export class ContactsComponent {
     this.ContactBook = this.originalContactBook.filter(contact => {
       // Check if the contact's firstName (or any other property) includes the search query
       return contact.firstName.toLowerCase().includes(lowerCaseQuery) ||
-             contact.lastName.toLowerCase().includes(lowerCaseQuery) ||
-             contact.email.toLowerCase().includes(lowerCaseQuery); // You can add more fields here
+        contact.lastName.toLowerCase().includes(lowerCaseQuery) ||
+        contact.email.toLowerCase().includes(lowerCaseQuery); // You can add more fields here
     });
   }
 }
