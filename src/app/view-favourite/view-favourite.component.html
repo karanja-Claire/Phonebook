@@ -1,0 +1,127 @@
+<div class="flex justify-start items-center">
+  <svg (click)="previous()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+    class="feather feather-arrow-left">
+    <line x1="19" y1="12" x2="5" y2="12"></line>
+    <polyline points="12 19 5 12 12 5"></polyline>
+  </svg>
+  <h2 class="mb-4 pl-2 text-xl font-bold text-gray-900 dark:text-white">
+
+
+    Favourites
+
+  </h2>
+
+
+</div>
+<table class="w-full text-sm text-left text-gray-500 "
+class="w-full text-sm text-left text-gray-500" id="contactsData">
+<thead class="text-xs text-gray-700 uppercase bg-gray-100 ">
+  <tr>
+
+
+    <th scope="col" class="p-4  export-hide">
+      <div class="flex items-center">
+        <input id="checkbox-all" type="checkbox"
+          class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300  " [(ngModel)]="selectAll"
+          (change)="toggleAll($event)">
+        <label for="checkbox-all" class="sr-only">checkbox</label>
+      </div>
+    </th>
+    <th scope="col" class="px-4 py-4">First Name</th>
+    <th scope="col" class="px-4 py-3">Last Name</th>
+    <th scope="col" class="px-4 py-3">Email</th>
+    <th scope="col" class="px-4 py-3">Phone Number</th>
+
+    <th scope="col" class="px-4 py-3">Physical Address</th>
+    <th scope="col" class="px-4 py-3 export-hide">
+      <span class="sr-only">Actions</span>
+    </th>
+  </tr>
+</thead>
+<tbody *ngFor="let data of ContactBook  let i = index ">
+  <tr class="border-b dark:text-white" *ngIf="!data.deleted ">
+
+    <td class="p-4 w-4 export-hide">
+      <div class="flex items-center">
+        <input id="checkbox-table-search-1" [(ngModel)]="data.selected" (change)="onSelectionChange()"
+          type="checkbox" onclick="event.stopPropagation()"
+          class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 export-hide ">
+        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+      </div>
+    </td>
+    <th scope="row" class="px-4 py-3 font-medium text-gray-900 dark:text-white whitespace-nowrap ">
+      {{data.firstName}}</th>
+    <td class="px-4 py-3 font-medium text-gray-900 dark:text-white whitespace-nowrap ">{{data.lastName}}</td>
+    <td class="px-4 py-3">{{data.email}}</td>
+    <td class="px-4 py-3">{{data.phoneNumber}}</td>
+    <td class="px-4 py-3">{{data.physicalAddress}} </td>
+
+    <td class="px-4 py-3 flex items-center justify-end export-hide ">
+      <!-- Edit Button -->
+      <button type="button" (click)="edit(data)"
+        class="flex w-full items-center py-2 px-4 hover:bg-gray-100 text-gray-700 ">
+        <svg class="w-5 h-5 mr-2 text-blue-500 hover:text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" title="Edit">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M11 4h10M11 4L3 12v6h6l8-8M11 4l8 8" />
+        </svg>
+        <span class="dark:text-white">Edit</span>
+      </button>
+
+      <!-- Favorite Button -->
+      <button type="button" (click)="markFavourite(data)" title="Toggle Favorite"
+        class="flex w-full  items-center py-2 px-4 hover:bg-gray-100 text-gray-700">
+        <span *ngIf="!data.isFavorite">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 text-gray-500 hover:text-yellow-500 "
+            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l2.09 6.395a1 1 0 00.95.69h6.517c.969 0 1.371 1.24.588 1.81l-5.29 3.843a1 1 0 00-.364 1.118l2.09 6.395c.3.921-.755 1.688-1.538 1.118l-5.29-3.843a1 1 0 00-1.176 0l-5.29 3.843c-.783.57-1.838-.197-1.538-1.118l2.09-6.395a1 1 0 00-.364-1.118L2.34 11.822c-.783-.57-.38-1.81.588-1.81h6.517a1 1 0 00.95-.69l2.09-6.395z" />
+          </svg>
+        </span>
+        <span *ngIf="data.isFavorite">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 text-yellow-500" fill="currentColor"
+            viewBox="0 0 24 24">
+            <path
+              d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l2.09 6.395a1 1 0 00.95.69h6.517c.969 0 1.371 1.24.588 1.81l-5.29 3.843a1 1 0 00-.364 1.118l2.09 6.395c.3.921-.755 1.688-1.538 1.118l-5.29-3.843a1 1 0 00-1.176 0l-5.29 3.843c-.783.57-1.838-.197-1.538-1.118l2.09-6.395a1 1 0 00-.364-1.118L2.34 11.822c-.783-.57-.38-1.81.588-1.81h6.517a1 1 0 00.95-.69l2.09-6.395z" />
+          </svg>
+        </span>
+        <span class="dark:text-white">Favourite</span>
+      </button>
+
+      <!-- Preview Button -->
+      <button type="button"   [routerLink]="['/view_contact']" [queryParams]="{id: data.key}"
+        class="flex w-full  items-center py-2 px-4 hover:bg-gray-100 text-gray-700" title="Preview">
+        <svg class="w-5 h-5 mr-2 text-green-500 hover:text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 8c3.866 0 7-1.343 7-3m0 0c0-1.657-3.134-3-7-3s-7 1.343-7 3m7 3c-3.866 0-7 1.343-7 3m0 0c0 1.657 3.134 3 7 3s7-1.343 7-3m-7-3v3" />
+        </svg>
+        <span>Preview</span>
+      </button>
+
+      <!-- Delete Button -->
+      <button type="button" (click)="deleteContacts(data)"
+        class="flex w-full  items-center py-2 px-4 hover:bg-red-100 text-red-500" title="Delete">
+        <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        <span class="dark:text-white">Delete</span>
+      </button>
+
+
+
+
+    </td>
+
+  </tr>
+
+
+</tbody>
+</table>
+<div class="py-2">
+  <button (click)="deleteSelected()" [hidden]="selectedContactsCount === 0" class="p-2 bg-red-500 text-white rounded">
+    Delete Selected
+  </button>
+</div>

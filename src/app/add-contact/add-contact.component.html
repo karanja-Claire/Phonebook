@@ -1,0 +1,136 @@
+<div *ngIf="ifError" class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+  role="alert">
+  <span class="font-medium">{{errorMessage}}</span>
+</div>
+<div *ngIf="IfSuccess"
+  class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+  <span class="font-medium">Success!</span>
+</div>
+<div class="pt-10 flex justify-center overflow-x-auto">
+
+  <section class="w-full max-w-4xl">
+    <div class="flex items-center space-x-4 justify-start  pb-4">
+
+      <p>
+        <input type="file" (change)="onFileSelected($event)" accept=".xlsx, .xls" />
+      </p>
+      <button type="button" (click)="uploadExcelSheet()"
+        class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-green-700 rounded-lg  ">
+        Upload Excel sheet
+      </button>
+      <a href="/assets/sample/contacts_data.xlsx" download="contacts.xlsx" class="text-blue-500 hover:underline">
+        Download Sample Excel File
+      </a>
+    </div>
+    <div class="py-8 px-4 mx-auto  lg:py-16">
+
+      <div class="flex justify-start items-center">
+        <svg (click)="previous()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="feather feather-arrow-left">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <h2 class="mb-4 pl-2 text-xl font-bold text-gray-900 dark:text-white">
+
+
+          <span *ngIf="!editMode">Add Contact</span>
+          <span *ngIf="editMode">Edit Contact</span>
+
+
+        </h2>
+
+
+      </div>
+
+
+      <form [formGroup]="contactForm">
+        <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+          <div class="w-full">
+            <label for="firstName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white ">First
+              Name</label>
+            <input type="text" formControlName="firstName" name="firstName" id="firstName"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 "
+              placeholder="First Name" required>
+            <p *ngIf="contactForm.get('firstName')?.invalid && contactForm.get('firstName')?.touched"
+              class="mt-1 text-sm text-red-600">First name is required.</p>
+          </div>
+          <div class="w-full">
+            <label for="lastName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
+            <input type="text" formControlName="lastName" name="lastName" id="lastName"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 "
+              placeholder="Last Name" required>
+            <p *ngIf="contactForm.get('lastName')?.invalid && contactForm.get('lastName')?.touched"
+              class="mt-1 text-sm text-red-600">Last name is required.</p>
+          </div>
+          <div class="w-full">
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white ">Email</label>
+            <input type="email" formControlName="email" name="email" id="email"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 "
+              placeholder="Email" required>
+            <p *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
+              class="mt-1 text-sm text-red-600">Email is required.
+              <span *ngIf="contactForm.get('email')?.hasError('email')"> Please enter a valid email address
+              </span>
+            </p>
+          </div>
+          <div>
+            <label for="phoneNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white ">Phone
+              Number</label>
+            <input type="number" formControlName="phoneNumber" name="phoneNumber" id="phoneNumber"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 "
+              placeholder="254714234653" required>
+            <p *ngIf="contactForm.get('phoneNumber')?.invalid && contactForm.get('phoneNumber')?.touched"
+              class="mt-1 text-sm text-red-600">Phone Number is required.
+              <span class="mt-1 text-sm text-red-600"
+                *ngIf="contactForm.controls['phoneNumber'].errors?.['phoneNumberLength']" class="text-xs">
+                Phone Number must be exactly 12 digits
+              </span>
+            </p>
+          </div>
+          <div>
+            <label for="physicalAddress" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white ">Physical
+              Address</label>
+            <input type="text" formControlName="physicalAddress" name="physicalAddress" id="physicalAddress"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 "
+              placeholder="Nairobi" required>
+            <p *ngIf="contactForm.get('physicalAddress')?.invalid && contactForm.get('physicalAddress')?.touched"
+              class="mt-1 text-sm text-red-600">Physical Address is required.</p>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white ">Bio</label>
+            <textarea id="description" formControlName="bio" rows="8"
+              class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 "
+              placeholder="Your description here"></textarea>
+          </div>
+
+          <p *ngIf="contactForm.get('bio')?.invalid && contactForm.get('bio')?.touched"
+            class="mt-1 text-sm text-red-600">Bio is required.</p>
+
+
+
+
+        </div>
+        <button (click)="submit()" type="submit" *ngIf="!editMode"
+          class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-green-700 rounded-lg  ">
+          Submit
+        </button>
+        <button (click)="editContactData()" type="submit" *ngIf="editMode"
+          class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-green-700 rounded-lg  ">
+          Edit
+
+        </button>
+      </form>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+</div>
