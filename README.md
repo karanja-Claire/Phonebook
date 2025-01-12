@@ -9,22 +9,31 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Features
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Add Contacts: Users can add new contacts with details like name, phone number, email, and category.
 
-## Running end-to-end tests
+Edit Contacts: Users can edit existing contact information.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Delete Contacts: Contacts can be deleted with a single action.
 
-## Further help
+Search Contacts: Users can search for contacts by first name, last name, or email address.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Mark as Favorite: Users can mark contacts as favorites for quick access.
+
+Real-Time Sync: The application syncs with Firebase in real-time, making changes visible to all users immediately.
+
+
+## Export/import Data
+
+Download the excel sheet in add Contact, make sure it matches the specified format before uploading
+
+## etc
+ Toggle light and dark mode to access different themes
+
+
