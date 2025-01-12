@@ -1,4 +1,7 @@
 # Phonebook
+Kurasa Screening Exercise 1
+
+# Phonebook
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.14.
 
