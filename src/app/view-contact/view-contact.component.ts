@@ -30,6 +30,10 @@ export class ViewContactComponent {
           if (data) {
             this.contactDetails = data
           }
+
+
+
+
         }
       })
     }
@@ -40,10 +44,9 @@ export class ViewContactComponent {
 
     }
     edit(data: any) {
-
       this.editId = data.key
 
-      this.router.navigate(['add_contact'], { queryParams: { id:  this.editId}});
+      this.router.navigate(['/add_contact'], { queryParams: { id:  this.editId}});
 
     }
 

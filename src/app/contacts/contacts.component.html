@@ -81,7 +81,7 @@
           <td class="px-4 py-3 flex items-center justify-end export-hide ">
             <!-- Edit Button -->
             <button type="button" (click)="edit(data)"
-              class="flex w-full items-center py-2 px-4 hover:bg-gray-100 text-gray-700 ">
+              class="flex w-full items-center py-2 px-4 hover:bg-gray-100 text-gray-700 dark:hover:bg-slate-800 ">
               <svg class="w-5 h-5 mr-2 text-blue-500 hover:text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none"
                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" title="Edit">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -92,7 +92,7 @@
 
             <!-- Favorite Button -->
             <button type="button" (click)="markFavourite(data)" title="Toggle Favorite"
-              class="flex w-full  items-center py-2 px-4 hover:bg-gray-100 text-gray-700">
+              class="flex w-full  items-center py-2 px-4 hover:bg-gray-100 text-gray-700 dark:hover:bg-slate-800">
               <span *ngIf="!data.isFavorite">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 text-gray-500 hover:text-yellow-500 "
                   fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -112,7 +112,7 @@
 
             <!-- Preview Button -->
             <button type="button"  [routerLink]="['/view_contact']" [queryParams]="{id: data.key}"
-              class="flex w-full  items-center py-2 px-4 hover:bg-gray-100 text-gray-700" title="Preview">
+              class="flex w-full  items-center py-2 px-4 hover:bg-gray-100 text-gray-700 dark:hover:bg-slate-800" title="Preview">
               <svg class="w-5 h-5 mr-2 text-green-500 hover:text-green-600" xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -123,7 +123,7 @@
 
             <!-- Delete Button -->
             <button type="button" (click)="deleteContacts(data)"
-              class="flex w-full  items-center py-2 px-4 hover:bg-red-100 text-red-500" title="Delete">
+              class="flex w-full  items-center py-2 px-4 hover:bg-red-100 text-red-500 dark:hover:bg-slate-800" title="Delete">
               <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -141,30 +141,29 @@
 
       </tbody>
     </table>
-    <div *ngIf="isGridView" class="grid grid-cols-4 sm:grid-cols-1 md:grid-cols-2 gap-4">
-      <div *ngFor="let data of ContactBook">
-        <div *ngIf="!data.deleted" class="border p-4 rounded-lg bg-white shadow">
+    <div *ngIf="isGridView" class="grid grid-cols-2 md:grid-cols-2 gap-5">
+      <div *ngFor="let data of ContactBook" class="col-span-2">
+        <div *ngIf="!data.deleted" class="border p-4 rounded-lg  shadow">
           <div>
-
             <div class="flex justify-between items-center">
               <input id="checkbox-table-search-1" [(ngModel)]="data.selected" (change)="onSelectionChange()"
                 type="checkbox" onclick="event.stopPropagation()"
                 class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300">
               <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
             </div>
-            <div class="text-lg font-semibold text-gray-900 mt-2">{{data.firstName}} {{data.lastName}}</div>
-            <div class=" text-gray-700 dark:text-white font-semibold">Email:
+            <div class="text-lg font-semibold text-gray-900 mt-2 dark:text-white">{{data.firstName}} {{data.lastName}}</div>
+            <div class="text-gray-700 dark:text-white font-semibold">Email:
               <span class="text-black dark:text-white">{{data.email}}</span>
             </div>
-            <div class=" text-gray-700 dark:text-white font-semibold">Phone Number: <span
-                class="text-black">{{data.phoneNumber}}</span>
+            <div class="text-gray-700 dark:text-white font-semibold">Phone Number:
+              <span class="text-black dark:text-white">{{data.phoneNumber}}</span>
             </div>
-            <div class=" text-gray-700 dark:text-white font-semibold">Physical Address: <span
-                class="text-black dark:text-white">{{data.physicalAddress}}</span>
+            <div class="text-gray-700 dark:text-white font-semibold">Physical Address:
+              <span class="text-black dark:text-white">{{data.physicalAddress}}</span>
             </div>
-            <div class="mt-4 flex  items-center">
+            <div class="mt-4 flex items-center">
               <button type="button" (click)="edit(data)"
-                class="flex w-full items-center py-2 px-4 hover:bg-gray-100 text-gray-700 dark:text-white">
+                class="flex w-full items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-700 dark:text-white">
                 <svg class="w-5 h-5 mr-2 text-blue-500 hover:text-blue-600" xmlns="http://www.w3.org/2000/svg"
                   fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" title="Edit">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -172,10 +171,8 @@
                 </svg>
                 <span class="dark:text-white text-sm">Edit</span>
               </button>
-
-              <!-- Favorite Button -->
               <button type="button" (click)="markFavourite(data)" title="Toggle Favorite"
-                class="flex w-full items-center py-2 px-4 hover:bg-gray-100 text-gray-700 dark:text-white">
+                class="flex w-full items-center py-2 px-4 hover:bg-gray-100 text-gray-700 dark:text-white dark:hover:bg-slate-800">
                 <span *ngIf="!data.isFavorite">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 text-gray-500 hover:text-yellow-500"
                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -192,10 +189,8 @@
                 </span>
                 <span clas="dark:text-white text-sm">Favourite</span>
               </button>
-
-              <!-- Preview Button -->
               <button type="button" [routerLink]="['/view_contact']" [queryParams]="{id: data.key}"
-                class="flex w-full items-center py-2 px-4 hover:bg-gray-100 text-gray-700" title="Preview">
+                class="flex w-full items-center py-2 px-4 hover:bg-gray-100 text-gray-700 dark:hover:bg-slate-800" title="Preview">
                 <svg class="w-5 h-5 mr-2 text-green-500 hover:text-green-600" xmlns="http://www.w3.org/2000/svg"
                   fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -203,24 +198,20 @@
                 </svg>
                 <span class="dark:text-white text-sm">Preview</span>
               </button>
-
-              <!-- Delete Button -->
               <button type="button" (click)="deleteContacts(data)"
-                class="flex w-full items-center py-2 px-4 hover:bg-red-100 text-red-500" title="Delete">
+                class="flex w-full items-center py-2 px-4 hover:bg-red-100 text-red-500 dark:hover:bg-slate-800" title="Delete">
                 <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
                 <span class="dark:text-white text-sm">Delete</span>
               </button>
-
             </div>
           </div>
-
         </div>
       </div>
-
     </div>
+
 <div class="py-2">
   <button (click)="deleteSelected()" [hidden]="selectedContactsCount === 0" class="p-2 bg-red-500 text-white rounded">
     Delete Selected
